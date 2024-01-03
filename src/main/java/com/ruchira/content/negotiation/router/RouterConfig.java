@@ -1,5 +1,6 @@
 package com.ruchira.content.negotiation.router;
 
+import com.ruchira.content.negotiation.constant.EndPointConstant;
 import com.ruchira.content.negotiation.handler.FunctionalRouterHandler;
 import com.ruchira.content.negotiation.vo.ResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,12 +22,10 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 @Configuration
 public class RouterConfig {
 
-    private static final String PATH = "/functional-api";
-
     @Bean
     @RouterOperations(
             {
-                    @RouterOperation(path = PATH, produces = {
+                    @RouterOperation(path = EndPointConstant.FUNCTIONAL_API_PATH, produces = {
                             MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
                             consumes = {
                                     MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
@@ -39,7 +38,7 @@ public class RouterConfig {
             })
     public RouterFunction<ServerResponse> routes(FunctionalRouterHandler routerHandler) {
         return RouterFunctions
-                .route(POST(PATH)
+                .route(POST(EndPointConstant.FUNCTIONAL_API_PATH)
                         , routerHandler::functionalBasedAPI)
                 ;
     }
